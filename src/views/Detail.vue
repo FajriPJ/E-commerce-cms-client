@@ -19,6 +19,7 @@
             name="price-add"
             id="price-add"
             placeholder="Enter Product's Price"
+            v-model="products.price"
             required
           />
         </div>
@@ -30,6 +31,7 @@
             name="stock-add"
             id="stock-add"
             placeholder="Enter Product's Stock"
+            v-model="products.stock"
             required
           />
         </div>

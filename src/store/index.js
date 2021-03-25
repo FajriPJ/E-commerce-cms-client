@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../axios/axios'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -20,7 +21,7 @@ export default new Vuex.Store({
   },
   actions: {
     login (context, payload) {
-      console.log(payload)
+      // console.log(payload, '===========')
       axios({
         url: 'login',
         method: 'POST',
@@ -30,7 +31,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          console.log(data, 'dari then')
+          // console.log(data, 'dari then')
           localStorage.setItem('access_token', data.access_token)
           router.push('/')
         })
@@ -102,6 +103,33 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('insertProductDetail', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    updateCart (context, payload) {
+      axios({
+        url: `cart/${payload.id}`,
+        method: 'PUT',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          id: payload.id,
+          quantity: payload.quantity
+        }
+      })
+        .then(({ data }) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Cart Updated',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          router.push('/')
+          console.log(data)
         })
         .catch(err => {
           console.log(err)

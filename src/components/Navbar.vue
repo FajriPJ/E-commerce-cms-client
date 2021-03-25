@@ -4,7 +4,6 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid m-3">
           <router-link
-
             to="/"
             class="nav nav-link active text-dark"
             aria-current="page"
